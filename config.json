@@ -1,0 +1,1 @@
+{"actions": [{"type": "command", "label": "Generate Thumbnails", "command_line": "nautilus-thumbnail-generator.py %d", "permissions": "read-write", "use_v1_interpolation": false, "filetypes": ["directory", "file"]}], "sort": "manual", "debug": false}

@@ -6,7 +6,10 @@ This approach serves as a temporary solution for situations where thumbnails fai
 ## Features
 
 - Generates thumbnails for images efficiently in the background.
-- Watches for new or updated files in real-time to keep thumbnails current.
+- ~~Watches for new or updated files in real-time to keep thumbnails current.~~
+- Can be run from anywhere with no arguments to run in current working directory, or with directory specified as argument.
+- Supports adding option in context menu using [Actions for Nautilus](https://github.com/bassmanitram/actions-for-nautilus)
+    - Check out [config.json](./config.json) for a working example!
 - TODO use other thumbnailers depending on the format
 
 ## Prerequisites
@@ -14,7 +17,8 @@ This approach serves as a temporary solution for situations where thumbnails fai
 - Tested on Fedora 39
 - systemd
 - Python 3
-- `watchdog` Python package
+- ~~`watchdog` Python package~~
+- `filetype` Python package
 - `gdk-pixbuf-thumbnailer`
 
 ## Installation
@@ -44,7 +48,7 @@ This script will install the necessary files and set up a user service to run th
 
 ## Usage
 
-Once installed, the Nautilus Thumbnail Generator will start automatically and monitor the specified directory (default is ~/Pictures). Thumbnails will be generated in the appropriate cache directory and used by Nautilus or other file managers that follow the FreeDesktop.org thumbnail specification.
+Once installed, the Nautilus Thumbnail Generator can be run from anywhere in a terminal, or use [Actions for Nautilus](https://github.com/bassmanitram/actions-for-nautilus) with [config.json](./config.json) for a context menu option to generate for any directory. Thumbnails will be generated in the appropriate cache directory and used by Nautilus or other file managers that follow the FreeDesktop.org thumbnail specification.
 
 **First run can take a long time to generate all thumbnails, depends on the scope as well**
 

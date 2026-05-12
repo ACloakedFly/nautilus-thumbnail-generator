@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import subprocess
 import hashlib
 import logging
 from urllib.parse import quote
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+import filetype
+
+path_to_thumbnail = '~/Pictures'
 
 class ThumbnailGenerator:
     def __init__(self, directory):
@@ -36,27 +38,42 @@ class ThumbnailGenerator:
     def process_existing_files(self):
         for root, _, files in os.walk(self.directory):
             for filename in files:
-                self.generate_thumbnail(os.path.join(root, filename))
+                if os.path.isfile(filename):
+                    if filetype.is_image(filename):
+                        self.generate_thumbnail(os.path.join(root, filename))
+        logging.info(f'Done generating thumbnails in {self.directory}')
 
     def run(self):
         self.process_existing_files()
-        event_handler = FileSystemEventHandler()
-        event_handler.on_created = lambda event: self.generate_thumbnail(event.src_path)
-        event_handler.on_modified = lambda event: self.generate_thumbnail(event.src_path)
-        event_handler.on_moved = lambda event: self.generate_thumbnail(event.dest_path)  # Handle rename
+        #event_handler = FileSystemEventHandler()
+        #event_handler.on_created = lambda event: self.generate_thumbnail(event.src_path)
+        #event_handler.on_modified = lambda event: self.generate_thumbnail(event.src_path)
+        #event_handler.on_moved = lambda event: self.generate_thumbnail(event.dest_path)  # Handle rename
 
-        observer = Observer()
-        observer.schedule(event_handler, self.directory, recursive=True)
-        observer.start()
+        #observer = Observer()
+        #observer.schedule(event_handler, self.directory, recursive=True)
+        #observer.start()
 
-        try:
-            while True:
-                observer.join(1)
-        except KeyboardInterrupt:
-            observer.stop()
-        observer.join()
+        #try:
+        #    while True:
+        #        observer.join(1)
+        #except KeyboardInterrupt:
+        #    observer.stop()
+        #observer.join()
 
 if __name__ == "__main__":
-    generator = ThumbnailGenerator(os.path.expanduser('~/Pictures'))
+    if len(sys.argv) < 1 or len(sys.argv) > 2: 
+        print("Usage: python3 nautilus-thumbnail-generator.py path-to-thumbnail") 
+        print(f'Received {len(sys.argv)} arguments: ')
+        for args in sys.argv:
+            print(str(args))
+        sys.exit(1) 
+    
+    if len(sys.argv) == 2: 
+        path_to_thumbnail = os.path.expanduser(str(sys.argv[1]))
+    else:
+        path_to_thumbnail = os.getcwd()
+    print(f'Generating thumbnails in {path_to_thumbnail}')
+    generator = ThumbnailGenerator(path_to_thumbnail)
     generator.run()
 
