@@ -38,9 +38,12 @@ class ThumbnailGenerator:
     def process_existing_files(self):
         for root, _, files in os.walk(self.directory):
             for filename in files:
-                if os.path.isfile(filename):
-                    if filetype.is_image(filename):
-                        self.generate_thumbnail(os.path.join(root, filename))
+                file_path = os.path.join(root, filename)
+                try:
+                    if filetype.is_image(file_path):
+                        self.generate_thumbnail(file_path)
+                except Exception as e:
+                    logging.info(f'Error at {file_path} | {str(e)}')
         logging.info(f'Done generating thumbnails in {self.directory}')
 
     def run(self):

@@ -48,7 +48,7 @@ This script will install the necessary files and set up a user service to run th
 
 ## Usage
 
-Once installed, the Nautilus Thumbnail Generator can be run from anywhere in a terminal, or use [Actions for Nautilus](https://github.com/bassmanitram/actions-for-nautilus) with [config.json](./config.json) for a context menu option to generate for any directory. Thumbnails will be generated in the appropriate cache directory and used by Nautilus or other file managers that follow the FreeDesktop.org thumbnail specification.
+Once installed, the Nautilus Thumbnail Generator can be run from anywhere in a terminal, or use [Actions for Nautilus](https://github.com/bassmanitram/actions-for-nautilus) with [config.json](./config.json) for a context menu option to generate for any directory. Thumbnails will be generated in the appropriate cache directory and used by Nautilus or other file managers that follow the FreeDesktop.org thumbnail specification. Be sure to refresh folder (press F5) to see updates.
 
 **First run can take a long time to generate all thumbnails, depends on the scope as well**
 
